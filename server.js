@@ -11,7 +11,7 @@ server.set('views', path.join(__dirname, 'views'))
 
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
-server.use('/static', express.static(path.join(__dirname, 'public')))
+server.use(express.static(path.join(__dirname, 'public')))
 
 server.get('/', (req, res) => {
   res.render('index.ejs')
