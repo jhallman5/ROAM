@@ -1,6 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const path = require('path')
+const router = require('./routes')
+const session = require('express-session')
+const passport = require('./auth/passport')
+const queries = require('./database/queries')
 
 const server = express()
 
@@ -11,11 +16,20 @@ server.set('views', path.join(__dirname, 'views'))
 
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
+server.use(cookieParser())
+server.use(session({
+  secret: 'Dark side',
+  resave: true,
+  saveUninitialized: false
+}))
+
 server.use(express.static(path.join(__dirname, 'public')))
 
-server.get('/', (req, res) => {
-  res.render('index.ejs')
-})
+server.use(passport.initialize())
+server.use(passport.session())
+
+server.use(router)
+
 server.listen(PORT,() => {
   console.log('The Server is running on port', + PORT)
 })

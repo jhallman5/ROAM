@@ -2013,6 +2013,13 @@ input[type="submit"].button {
   width: 100%;
 }
 
+.input.is-quarterwidth,
+.textarea.is-fullwidth {
+  display: block;
+  width: 25%;
+  
+}
+
 .input.is-inline,
 .textarea.is-inline {
   display: inline;
