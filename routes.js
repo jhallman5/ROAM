@@ -19,11 +19,10 @@ router.get('/sign_up', (req, res) => {
   res.render('sign_up')
 })
 
-router.post('/sign_in', passport.authenticate('local'), (req, res) =>{
-  const body = req.body
-  console.log( "=-=-=-> req", req )
-  console.log( "=-=-=-> body", body )
-  res.redirect(`/user/jhallman5`)
+router.post('/sign_in', (req, res, next)  => {
+  passport.authenticate('local', { successRedirect: `/user/${req.body.username}`,
+                                                          failureRedirect: '/sign_up'
+  })(req, res, next)
 })
 
 module.exports = router

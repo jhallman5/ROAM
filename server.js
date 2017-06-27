@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const path = require('path')
 const router = require('./routes')
 const session = require('express-session')
@@ -15,6 +16,7 @@ server.set('views', path.join(__dirname, 'views'))
 
 server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
+server.use(cookieParser())
 server.use(session({
   secret: 'Dark side',
   resave: true,
