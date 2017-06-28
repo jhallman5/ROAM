@@ -7,7 +7,7 @@
     <%- include( "partials/user_info") %>
     <div class="column">
       <h1 class="is-large">My Posts</h1>
-      <% user.posts.forEach(function(post){ %>
+      <% data.posts.forEach(function(post){ %>
         <div class="box">
           <article class="media">
             <div class="media-left">
@@ -22,8 +22,8 @@
               </div>
             </div>
             <div class="column is-narrow">
-              <a class="fa fa-pencil is-small"></a> <br />
-              <a class= "fa fa-trash is-small"></a>
+              <a class="fa fa-pencil is-small" href="/post/<%- post.id %>"></a> <br />
+              <a class= "fa fa-trash is-small" href="/post/<%- post.id %>/delete/<%- data.username %>"></a>
             </div>
           </article>
         </div>

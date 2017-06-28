@@ -32,7 +32,7 @@ const findUserWithPostsByUsername = (username, callback) =>
 
 const findUserById = (id, callback) =>
   knex.select().from('users').where({id: id})
-    .then((result, error) =>{
+    .then((result, error) => {
       callback(error, result[0])
     })
 
@@ -49,14 +49,37 @@ const findUserById = (id, callback) =>
             })
           }
         })
-        .then(() => {
-          callback()
-        })
+      .then(() => {
+        callback()
+      })
 }
+
+const getPostWithUserByPostId = (postId, callback) =>
+  knex('posts')
+    .join('users', 'posts.user_id', '=', 'users.id')
+    .join('cities', 'posts.cities_id', '=', 'cities.id')
+    .where('posts.id', postId)
+    .first('username','current_city','users.created_at AS member_since','cities.name AS city', 'content','posts.created_at')
+  .then((result, error) => {
+    console.log( "=-=-=-> result", result )
+    callback(error, result)
+  })
+
+const deletePostById = (postId, callback) => {
+  knex('posts')
+    .where('posts.id', postId)
+    .del()
+  .then((result, error) => {
+    callback(error, result)
+  })
+}
+
 
 module.exports = {
   findUserbyUsername,
   findUserWithPostsByUsername,
   findUserById,
   addUser,
+  getPostWithUserByPostId,
+  deletePostById,
 }
