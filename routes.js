@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
 router.get('/user/:username', (req, res) => {
   const username = req.params.username
   queries.findUserWithPostsByUsername(username, (error, user) => {
-    console.log( "=-=-=-> user", user )
     res.render('user_profile', {user})
   })
 })

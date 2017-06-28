@@ -4,17 +4,28 @@
 <body>
   <%- include( "partials/nav_bar") %>
   <div class="columns">
-    <div class="column is-one-quarter">
-      <img src="https://lh5.googleusercontent.com/-DwdpNPl9tH0/TYmjZp6RuFI/AAAAAAAAFkc/Ry3lOTu7xY4/s1600/AWESOME+FACEBOOK+PROFILE+PICTURES1.jpg" />
-      <h1>Hello <%- user.username %></h1>
-      <h1> Joined <%-  user.created_at %></h1>
-      <h1> Current City <%- user.current_city %></h1>
-    </div>
-    <div class="column is-one-half">
+    <%- include( "partials/user_info") %>
+    <div class="column">
+      <h1 class="is-large">My Posts</h1>
       <% user.posts.forEach(function(post){ %>
-        <div>
-          <%- post.city %> ====>
-          <%- post.content %>
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="http://www.etptechnic.com/en/images/icon201.png" />
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <strong> <%- post.city %> </strong> <br />
+                <%- post.content %>
+              </div>
+            </div>
+            <div class="column is-narrow">
+              <a class="fa fa-pencil is-small"></a> <br />
+              <a class= "fa fa-trash is-small"></a>
+            </div>
+          </article>
         </div>
         <% }) %>
     </div>
