@@ -9,7 +9,7 @@ passport.use('local', new LocalStrategy({
   session: true
 },
   (req, username, password, done) => {
-    queries.findUserbyUsernameAndEmail(username, password, function (err, user) {
+    queries.findUserbyUsername(username, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
