@@ -49,4 +49,13 @@ router.get('/post/:postId/delete/:username', (req, res, next) => {
   })
 })
 
+router.get('/cities/:cityName', (req, res, next) => {
+  const { cityName } = req.params
+  queries.getCityWithPostsByName(cityName, (error, data) => {
+    res.render('city', {data})
+  })
+})
+
+
+
 module.exports = router

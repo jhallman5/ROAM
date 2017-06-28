@@ -74,6 +74,25 @@ const deletePostById = (postId, callback) => {
   })
 }
 
+const getCityWithPostsByName = (cityName, callback) => {
+  knex('cities')
+    .join('posts', 'cities.id', '=', 'posts.cities_id')
+    .join('users', 'posts.user_id', '=', 'users.id')
+    .where('cities.name', cityName)
+    .select('name','username', 'content', 'posts.created_at AS created_at')
+  .then((result, error) => {
+    const returnedCity = {
+                          name: result[0].name,
+                          posts: result.map(post => {
+                            return { username: post.username,
+                                    content: post.content,
+                                    created_at: post.created_at
+                                  }
+                          })
+    }
+    callback(error, returnedCity)
+  })
+}
 
 module.exports = {
   findUserbyUsername,
@@ -82,4 +101,5 @@ module.exports = {
   addUser,
   getPostWithUserByPostId,
   deletePostById,
+  getCityWithPostsByName,
 }
