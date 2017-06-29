@@ -3,31 +3,14 @@ const router = express.Router()
 const passport = require('../auth/passport')
 const queries = require('../database/queries')
 
-// router.get('/', (req, res) => {
-//   console.log( "=-=-=-> req.session", req.cookies)
-//   res.render('index')
-// })
-
 router.get('/user/:username', (req, res) => {
-  console.log( "=-=-=-> req workinggngngg", req.session.passport )
-  const username = req.params.username
+  const {username} = req.params
+  console.log( "(>'')>  ", username )
   queries.findUserWithPostsByUsername(username, (error, data) => {
+    console.log( "=-=-=-> data", data )
     res.render('user_profile', {data})
   })
 })
-
-// router.post('/sign_in', (req, res, next)  => {
-//   passport.authenticate('local', { successRedirect: `/user/${req.body.username}`,
-//                                    failureRedirect: '/sign_up'
-//   })(req, res, next)
-// })
-//
-// router.post('/sign_up' , (req, res, next)  => {
-//   const {username, email, password} = req.body
-//   queries.addUser(username, email, password, () => {
-//     res.redirect(`/user/${username}`)
-//   })
-// })
 
 router.get('/post/:postId', (req, res, next) => {
   const postId = req.params.postId
@@ -61,5 +44,10 @@ router.post('/cities/:cityName/new_post', (req, res, next) => {
 
 })
 
+router.get('/log_out', (req, res) => {
+  if(req.session.passport) {
+    req.session.destroy(() => res.redirect('/sign_in') )
+  }
+})
 
 module.exports = router

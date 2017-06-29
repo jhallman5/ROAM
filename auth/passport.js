@@ -3,7 +3,6 @@ const LocalStrategy = require('passport-local').Strategy
 const knex = require('../database/knex')
 const queries = require('../database/queries')
 
-
 passport.use('local', new LocalStrategy({
   passReqToCallback: true,
   session: true
@@ -22,12 +21,12 @@ passport.use('local', new LocalStrategy({
   }
 ));
 
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
+passport.serializeUser((user, done) => {
+  done(null, user.username);
 })
 
-passport.deserializeUser(function(id, done) {
-  queries.findUserById(id, function(err, user) {
+passport.deserializeUser((id, done) => {
+  queries.findUserbyUsername(id, (err, user) => {
     done(err, user)
   });
 })

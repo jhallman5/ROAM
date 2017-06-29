@@ -19,12 +19,9 @@ server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
 server.use(cookieParser())
 server.use(session({
-  key: 'user_session',
   secret: 'Dark side',
   resave: true,
-  saveUninitialized: true,
-  cookie: {
-    expires: 1000 }
+  saveUninitialized: false
 }))
 
 server.use(express.static(path.join(__dirname, 'public')))
@@ -32,15 +29,8 @@ server.use(express.static(path.join(__dirname, 'public')))
 server.use(passport.initialize())
 server.use(passport.session())
 
-server.use((req, res, next) =>{
-  if(!(req.cookies && req.cookies.user_session)){
-    res.clearCookie('user_session')
-  }
-  next()
-})
-
 const sessionChecker = (req, res, next) => {
-  if(req.cookies.session && req.cookies.user_session) {
+  if(req.session.passport) {
     next()
   } else{
     res.redirect('/sign_in')
