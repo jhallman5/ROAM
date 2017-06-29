@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<%- include( "partials/head") %>
+<body>
+  <%- include( "partials/nav_bar") %>
+  <form action="/sign_up" class="column is-offset-5" method="POST" >
+    <div class="field column">
+      <p class="control has-icons-left">
+        <input class="input is-quarterwidth" type="text" name="username" placeholder="Username"  />
+        <span class="icon is-small is-left">
+          <i class="fa fa-user"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field column">
+      <p class="control has-icons-left ">
+        <input class="input is-quarterwidth" type="text" name="email" placeholder="Email" />
+        <span class="icon is-small is-left">
+          <i class="fa fa-envelope"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field column">
+      <p class="control has-icons-left ">
+        <input class="input is-quarterwidth" type="text" name="password" placeholder="Password" />
+        <span class="icon is-small is-left">
+          <i class="fa fa-lock"></i>
+        </span>
+      </p>
+    </div>
+    <div class="field is-grouped">
+      <p class="control">
+        <input class=" button is-success is-hovered" type="submit" value="Sign Up"/>
+      </p>
+
+    </div>
+  </form>
+</body>
+</html>

@@ -3,8 +3,21 @@
 <%- include( "partials/head") %>
 <body>
   <%- include( "partials/nav_bar") %>
-  <div>
-     Hello <%- username %>
+  <div class="columns">
+    <div class="column is-one-quarter">
+      <img src="https://lh5.googleusercontent.com/-DwdpNPl9tH0/TYmjZp6RuFI/AAAAAAAAFkc/Ry3lOTu7xY4/s1600/AWESOME+FACEBOOK+PROFILE+PICTURES1.jpg" />
+      <h1>Hello <%- user.username %></h1>
+      <h1> Joined <%-  user.created_at %></h1>
+      <h1> Current City <%- user.current_city %></h1>
+    </div>
+    <div class="column is-one-half">
+      <% user.posts.forEach(function(post){ %>
+        <div>
+          <%- post.city %> ====>
+          <%- post.content %>
+        </div>
+        <% }) %>
+    </div>
   </div>
 </body>
 </html>
