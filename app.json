@@ -1,0 +1,6 @@
+{
+  "name": "ROAM",
+  "description": "My first Heroku app",
+  "repository": "https://github.com/jhallman5/ROAM",
+  "keywords": ["node", "express", "heroku"],
+}

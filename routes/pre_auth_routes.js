@@ -5,23 +5,26 @@ const queries = require('../database/queries')
 
 const loggedInSession = (req, res, next) => {
   if(req.session.passport) {
-    res.redirect('/user/jhallman5')
+    queries.findUserbyUsername(req.session.passport.user, (error, user) => {
+        res.redirect(`user/${user.username}`)
+      })
   } else {
     next()
   }
 }
 
-preAuthRouter.get('/', (req, res) => {
+preAuthRouter.get('/', loggedInSession, (req, res) => {
   res.render('index')
 })
 
-preAuthRouter.get('/sign_in', (req, res) => {
+preAuthRouter.get('/sign_in', loggedInSession, (req, res) => {
   res.render('sign_in')
 })
 
-preAuthRouter.get('/sign_up', (req, res) => {
+preAuthRouter.get('/sign_up', loggedInSession, (req, res) => {
   res.render('sign_up')
 })
+
 
 preAuthRouter.post('/sign_in', (req, res, next)  => {
   passport.authenticate('local', { successRedirect: `/user/${req.body.username}`,

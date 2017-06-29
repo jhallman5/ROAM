@@ -9,8 +9,8 @@ const findUserbyUsername = (username, callback) =>
 //finds user and then processes user to an object that the routes/views can easily use
 const findUserWithPostsByUsername = (username, callback) =>
   knex('users')
-    .join('posts', 'users.id', '=', 'posts.user_id')
-    .join('cities', 'posts.cities_id', '=', 'cities.id')
+    .fullOuterJoin('posts', 'users.id', 'posts.user_id')
+    .fullOuterJoin('cities', 'posts.cities_id', 'cities.id')
     .where({ username: username})
     .select('username', 'current_city', 'email', 'users.created_at', 'posts.id','content','posts.created_at', 'cities.name')
   .then((result, error) => {
@@ -27,6 +27,8 @@ const findUserWithPostsByUsername = (username, callback) =>
                                   }
                           })
     }
+    if(!returnedUser.posts.id) returnedUser.posts[0].content = "None... yet!"
+
     callback(error, returnedUser)
   })
 
@@ -61,7 +63,6 @@ const getPostWithUserByPostId = (postId, callback) =>
     .where('posts.id', postId)
     .first('username','current_city','users.created_at AS member_since','cities.name AS city', 'content','posts.created_at')
   .then((result, error) => {
-    console.log( "=-=-=-> result", result )
     callback(error, result)
   })
 
@@ -76,8 +77,8 @@ const deletePostById = (postId, callback) => {
 
 const getCityWithPostsByName = (cityName, callback) => {
   knex('cities')
-    .join('posts', 'cities.id', '=', 'posts.cities_id')
-    .join('users', 'posts.user_id', '=', 'users.id')
+    .fullOuterJoin('posts', 'cities.id', '=', 'posts.cities_id')
+    .fullOuterJoin('users', 'posts.user_id', '=', 'users.id')
     .where('cities.name', cityName)
     .select('name','username', 'content', 'posts.created_at AS created_at')
   .then((result, error) => {
