@@ -5,17 +5,16 @@ const queries = require('../database/queries')
 
 router.get('/user/:username', (req, res) => {
   const {username} = req.params
-  console.log( "(>'')>  ", username )
+  console.log( "=-=-=-> username", username )
   queries.findUserWithPostsByUsername(username, (error, data) => {
-    console.log( "=-=-=-> data", data )
-    res.render('user_profile', {data})
+    res.render('user_profile', {data, session: req.session})
   })
 })
 
 router.get('/post/:postId', (req, res, next) => {
   const postId = req.params.postId
   queries.getPostWithUserByPostId(postId, (error, data) => {
-    res.render('post', {data})
+    res.render('post', {data:data , session: req.session})
   })
 })
 
@@ -29,13 +28,13 @@ router.get('/post/:postId/delete/:username', (req, res, next) => {
 router.get('/cities/:cityName', (req, res, next) => {
   const { cityName } = req.params
   queries.getCityWithPostsByName(cityName, (error, data) => {
-    res.render('city', {data})
+    res.render('city', {data: data, session: req.session})
   })
 })
 
 router.get('/cities/:cityName/new_post', (req, res, next) => {
   const {cityName} = req.params
-  res.render('new_post', {data: cityName})
+  res.render('new_post', {data: cityName, session: req.session})
 })
 
 router.post('/cities/:cityName/new_post', (req, res, next) => {

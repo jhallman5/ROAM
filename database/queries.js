@@ -77,8 +77,8 @@ const deletePostById = (postId, callback) => {
 
 const getCityWithPostsByName = (cityName, callback) => {
   knex('cities')
-    .join('posts', 'cities.id', '=', 'posts.cities_id')
-    .join('users', 'posts.user_id', '=', 'users.id')
+    .fullOuterJoin('posts', 'cities.id', '=', 'posts.cities_id')
+    .fullOuterJoin('users', 'posts.user_id', '=', 'users.id')
     .where('cities.name', cityName)
     .select('name','username', 'content', 'posts.created_at AS created_at')
   .then((result, error) => {
