@@ -94,6 +94,10 @@ const getCityWithPostsByName = (cityName, callback) => {
   })
 }
 
+const createPost = (cityName, userId) =>{
+
+}
+
 module.exports = {
   findUserbyUsername,
   findUserWithPostsByUsername,
