@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<%- include( "partials/head") %>
+<body>
+  <%- include( "partials/nav_bar") %>
+  <div class="columns">
+    <%- include( "partials/user_info") %>
+    <div class="column">
+      <article class="message is-info">
+        <div class="message-header">
+          <%- data.city %>
+        </div>
+        <div >
+          <%- data.content %>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</body>
+</html>

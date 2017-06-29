@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<%- include( "partials/head") %>
+<body>
+  <%- include( "partials/nav_bar") %>
+  <div>
+    New Post for <%- data %>
+  </div>
+  <div class="field">
+    <form action="#" class="column " method="POST">
+      <div class="field column">
+        <p class="control">
+          <input class="input" name="title" placeholder="Title of your post"/>
+        </p>
+      </div>
+        <div class="field column">
+          <p class="control">
+            <textarea class="textarea is-quarterwidth" name="userPost" placeholder="Your post"></textarea>
+          </p>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <p class="control">
+          <input class=" button is-primary is-hovered" type="submit" value="POST IT!"/>
+        </p>
+    </form>
+  </div>
+</body>
+</html>
