@@ -10,7 +10,7 @@ const queries = require('./database/queries')
 
 const server = express()
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 server.set('view engine', 'ejs')
 server.set('views', path.join(__dirname, 'views'))
@@ -42,5 +42,5 @@ server.use(sessionChecker)
 server.use(router)
 
 server.listen(PORT,() => {
-  console.log('The Server is running on port', + PORT)
+  console.log('The Server is running on port', PORT)
 })
