@@ -5,7 +5,6 @@ const queries = require('../database/queries')
 
 router.get('/user/:username', (req, res) => {
   const {username} = req.params
-  console.log( "=-=-=-> username", username )
   queries.findUserWithPostsByUsername(username, (error, data) => {
     res.render('user_profile', {data, session: req.session})
   })

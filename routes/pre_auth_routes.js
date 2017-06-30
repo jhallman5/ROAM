@@ -25,7 +25,6 @@ preAuthRouter.get('/sign_up', loggedInSession, (req, res) => {
   res.render('sign_up')
 })
 
-
 preAuthRouter.post('/sign_in', (req, res, next)  => {
   passport.authenticate('local', { successRedirect: `/user/${req.body.username}`,
                                    failureRedirect: '/sign_up'
@@ -38,4 +37,5 @@ preAuthRouter.post('/sign_up', (req, res, next)  => {
     res.redirect(`/user/${username}`)
   })
 })
+
 module.exports = preAuthRouter

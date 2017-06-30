@@ -27,11 +27,9 @@ const findUserWithPostsByUsername = (username, callback) =>
                                   }
                           })
     }
-
     if(!returnedUser.posts[0].id) {
       returnedUser.posts[0].content = "None... yet!"
     }
-  
     callback(error, returnedUser)
   })
 
@@ -41,22 +39,22 @@ const findUserById = (id, callback) =>
       callback(error, result[0])
     })
 
-    const addUser = (username, email, password, callback) => {
-      knex.select().from('users').where({ username: username})
-        .then((result, error) => {
-          if(!result.length){
-            return knex('users')
-            .returning('*')
-            .insert({
-              email: email,
-              username: username,
-              password: password
-            })
-          }
+const addUser = (username, email, password, callback) => {
+  knex.select().from('users').where({ username: username})
+    .then((result, error) => {
+      if(!result.length){
+        return knex('users')
+        .returning('*')
+        .insert({
+          email: email,
+          username: username,
+          password: password
         })
-      .then(() => {
-        callback()
-      })
+      }
+    })
+  .then(() => {
+    callback()
+  })
 }
 
 const getPostWithUserByPostId = (postId, callback) =>
@@ -98,7 +96,7 @@ const getCityWithPostsByName = (cityName, callback) => {
   })
 }
 
-const createPost = (cityName, userId) =>{
+const createPost = (cityName, userId) => {
 
 }
 

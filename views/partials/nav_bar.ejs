@@ -2,14 +2,8 @@
   <div class="container">
     <div class="nav-left">
       <a class="nav-item" href='/'>ROAM</a>
-    <!-- <span class="nav-toggle">
-      <span>Sign In</span>
-      <span></span>
-      <span></span>
-    </span> -->
     <div class="nav-right nav-menu">
-      <% if(locals.session){
-        console.log(locals.session.passport.user )%>
+      <% if(locals.session){ %>
         <a href='/user/<%- locals.session.passport.user %>'>Profile</a>
         <a href="/log_out">Log Out</a>
        <% } else { %>
