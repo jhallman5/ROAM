@@ -36,7 +36,6 @@ const sessionChecker = (req, res, next) => {
     res.redirect('/sign_in')
   }
 }
-
 server.use(preAuthRouter)
 server.use(sessionChecker)
 server.use(router)
