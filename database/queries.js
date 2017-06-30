@@ -7,7 +7,7 @@ const findUserbyUsername = (username, callback) =>
     })
 
 //finds user and then processes user to an object that the routes/views can easily use
-const findUserWithPostsByUsername = (username, callback) =>
+const findUserWithPostsByUsername = (username, callback) => {
   knex('users')
     .fullOuterJoin('posts', 'users.id', 'posts.user_id')
     .fullOuterJoin('cities', 'posts.cities_id', 'cities.id')
@@ -32,6 +32,7 @@ const findUserWithPostsByUsername = (username, callback) =>
     }
     callback(error, returnedUser)
   })
+}
 
 const findUserById = (id, callback) =>
   knex.select().from('users').where({id: id})
@@ -94,10 +95,6 @@ const getCityWithPostsByName = (cityName, callback) => {
     }
     callback(error, returnedCity)
   })
-}
-
-const createPost = (cityName, userId) => {
-
 }
 
 module.exports = {

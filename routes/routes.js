@@ -4,21 +4,21 @@ const passport = require('../auth/passport')
 const queries = require('../database/queries')
 
 router.get('/user/:username', (req, res) => {
-  const {username} = req.params
+  const { username } = req.params
   queries.findUserWithPostsByUsername(username, (error, data) => {
     res.render('user_profile', {data, session: req.session})
   })
 })
 
 router.get('/post/:postId', (req, res, next) => {
-  const postId = req.params.postId
+  const { postId } = req.params
   queries.getPostWithUserByPostId(postId, (error, data) => {
     res.render('post', {data:data , session: req.session})
   })
 })
 
 router.get('/post/:postId/delete/:username', (req, res, next) => {
-  const {postId, username} = req.params
+  const { postId, username } = req.params
   queries.deletePostById(postId, (error, data) => {
     res.redirect(`/user/${username}`)
   })
@@ -32,7 +32,7 @@ router.get('/cities/:cityName', (req, res, next) => {
 })
 
 router.get('/cities/:cityName/new_post', (req, res, next) => {
-  const {cityName} = req.params
+  const { cityName } = req.params
   res.render('new_post', {data: cityName, session: req.session})
 })
 
