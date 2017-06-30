@@ -25,8 +25,8 @@ passport.serializeUser((user, done) => {
   done(null, user.username);
 })
 
-passport.deserializeUser((id, done) => {
-  queries.findUserbyUsername(id, (err, user) => {
+passport.deserializeUser((username, done) => {
+  queries.findUserbyUsername(username, (err, user) => {
     done(err, user)
   });
 })

@@ -27,8 +27,11 @@ const findUserWithPostsByUsername = (username, callback) =>
                                   }
                           })
     }
-    if(!returnedUser.posts.id) returnedUser.posts[0].content = "None... yet!"
 
+    if(!returnedUser.posts[0].id) {
+      returnedUser.posts[0].content = "None... yet!"
+    }
+  
     callback(error, returnedUser)
   })
 
