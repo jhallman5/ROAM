@@ -9,7 +9,6 @@ const passport = require('./auth/passport')
 const queries = require('./database/queries')
 
 const server = express()
-
 const PORT = process.env.PORT || 3000
 
 server.set('view engine', 'ejs')
@@ -36,6 +35,7 @@ const sessionChecker = (req, res, next) => {
     res.redirect('/sign_in')
   }
 }
+
 server.use(preAuthRouter)
 server.use(sessionChecker)
 server.use(router)
