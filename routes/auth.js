@@ -1,12 +1,12 @@
 const express = require('express')
 const preAuthRouter = express.Router()
 const passport = require('../auth/passport')
-const queries = require('../database/queries')
+const { User }= require('../database/queries')
 const bcrypt = require('bcrypt')
 
 const loggedInSession = (req, res, next) => {
   if(req.session.passport) {
-    queries.findUserById(req.session.passport.user, (error, user) => {
+    User.findUserById(req.session.passport.user, (error, user) => {
       res.redirect(`user/${user.username}`)
     })
   } else {
@@ -35,7 +35,7 @@ preAuthRouter.post('/sign_in', (req, res, next)  => {
 preAuthRouter.post('/sign_up', (req, res, next)  => {
   const {username, email, password} = req.body
   bcrypt.hash(password, 10, (error, hash) => {
-    queries.addUser(username, email, hash, () => {
+    User.addUser(username, email, hash, () => {
       res.redirect(`/user/${username}`)
     })
   })
