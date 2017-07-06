@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 
 const loggedInSession = (req, res, next) => {
   if(req.session.passport) {
-    queries.findUserbyUsername(req.session.passport.user, (error, user) => {
+    queries.findUserById(req.session.passport.user, (error, user) => {
         res.redirect(`user/${user.username}`)
       })
   } else {

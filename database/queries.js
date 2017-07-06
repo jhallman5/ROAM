@@ -9,8 +9,8 @@ const findUserbyUsername = (username, callback) =>
 //finds user and then processes user to an object that the routes/views can easily use
 const findUserWithPostsByUsername = (username, callback) => {
   knex('users')
-    .fullOuterJoin('posts', 'users.id', 'posts.user_id')
-    .fullOuterJoin('cities', 'posts.cities_id', 'cities.id')
+    .leftOuterJoin('posts', 'users.id', 'posts.user_id')
+    .leftOuterJoin('cities', 'posts.cities_id', 'cities.id')
     .where({ username: username})
     .select('username', 'current_city', 'email', 'users.created_at', 'posts.id','content','posts.created_at', 'cities.name')
   .then((result, error) => {
@@ -79,21 +79,37 @@ const deletePostById = (postId, callback) => {
 
 const getCityWithPostsByName = (cityName, callback) => {
   knex('cities')
-    .fullOuterJoin('posts', 'cities.id', '=', 'posts.cities_id')
-    .fullOuterJoin('users', 'posts.user_id', '=', 'users.id')
+    .leftOuterJoin('posts', 'cities.id', '=', 'posts.cities_id')
+    .leftOuterJoin('users', 'posts.user_id', '=', 'users.id')
     .where('cities.name', cityName)
-    .select('name','username', 'content', 'posts.created_at AS created_at')
+    .select('name','username', 'cities.id AS cityId', 'title', 'content', 'posts.created_at AS created_at')
   .then((result, error) => {
     const returnedCity = {
                           name: result[0].name,
+                          cityId: result[0].cityId,
                           posts: result.map(post => {
                             return { username: post.username,
+                                    title: post.title,
                                     content: post.content,
                                     created_at: post.created_at
                                   }
                           })
     }
     callback(error, returnedCity)
+  })
+}
+
+const createPost = (userId, citiesId, title, content, callback) => {
+  knex('posts')
+    .insert({
+      user_id: userId,
+      cities_id: citiesId,
+      title: title,
+      content: content
+    })
+    .returning('*')
+  .then((result) => {
+    callback()
   })
 }
 
@@ -105,4 +121,5 @@ module.exports = {
   getPostWithUserByPostId,
   deletePostById,
   getCityWithPostsByName,
+  createPost,
 }

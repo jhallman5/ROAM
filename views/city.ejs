@@ -9,9 +9,9 @@
         <h1 class="title">
           <%- data.name %>
         </h1>
-        
       </div>
     </div>
+    <a href="/cities/<%- data.name %>/<%- data.cityId %>/new_post">New Post</a>
   </section>
   <% data.posts.forEach(function(post) { %>
     <div class="box">
@@ -23,6 +23,9 @@
           <a href="/user/<%- post.username %>"> <%- post.username %> </a>
         </div>
         <div class="media-content">
+          <h1 class="title">
+            <%- post.title %>
+          </h1>
           <div class="content">
             <%- post.content %>
           </div>
