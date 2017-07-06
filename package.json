@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
+    "start:dev": "NODE_ENV=development nodemon server.js",
+    "migrate": "knex --knexfile database/knexfile.js migrate:latest",
+    "rollback": "knex --knexfile database/knexfile.js migrate:rollback",
+    "seed": "knex --knexfile database/knexfile.js seed:run",
     "web": "bin/www"
   },
   "repository": {

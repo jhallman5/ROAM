@@ -9,7 +9,7 @@ const passport = require('./auth/passport')
 const queries = require('./database/queries')
 
 const server = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 9001
 
 server.set('view engine', 'ejs')
 server.set('views', path.join(__dirname, 'views'))
@@ -42,4 +42,5 @@ server.use(router)
 
 server.listen(PORT,() => {
   console.log('The Server is running on port', PORT)
+  console.log('Using a ' + process.env.NODE_ENV + ' enviroment' )
 })
