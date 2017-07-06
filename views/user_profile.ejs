@@ -17,13 +17,13 @@
             </div>
             <div class="media-content">
               <div class="content">
-                <strong> <a href="/cities/<%- post.city %>"> <%- post.city %> </a> </strong> <br />
+                <strong> <a href="/city/<%- post.city %>"> <%- post.city %> </a> </strong> <br />
                 <%- post.content %>
               </div>
             </div>
             <div class="column is-narrow">
               <a class="fa fa-pencil is-small" href="/post/<%- post.id %>"></a> <br />
-              <a class= "fa fa-trash is-small" href="/post/<%- post.id %>/delete/<%- data.username %>"></a>
+              <a class= "fa fa-trash is-small" data-method="delete" href="/post/<%- post.id %>/<%- data.username %>/delete"></a>
             </div>
           </article>
         </div>

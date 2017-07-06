@@ -7,8 +7,8 @@ const bcrypt = require('bcrypt')
 const loggedInSession = (req, res, next) => {
   if(req.session.passport) {
     queries.findUserById(req.session.passport.user, (error, user) => {
-        res.redirect(`user/${user.username}`)
-      })
+      res.redirect(`user/${user.username}`)
+    })
   } else {
     next()
   }
@@ -34,11 +34,17 @@ preAuthRouter.post('/sign_in', (req, res, next)  => {
 
 preAuthRouter.post('/sign_up', (req, res, next)  => {
   const {username, email, password} = req.body
-    bcrypt.hash(password, 10, (error, hash) => {
-      queries.addUser(username, email, hash, () => {
-        res.redirect(`/user/${username}`)
-      })
+  bcrypt.hash(password, 10, (error, hash) => {
+    queries.addUser(username, email, hash, () => {
+      res.redirect(`/user/${username}`)
     })
+  })
+})
+
+preAuthRouter.get('/log_out', (req, res) => {
+  if(req.session.passport) {
+    req.session.destroy(() => res.redirect('/sign_in') )
+  }
 })
 
 module.exports = preAuthRouter

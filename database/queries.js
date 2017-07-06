@@ -8,12 +8,14 @@ const findUserbyUsername = (username, callback) =>
 
 //finds user and then processes user to an object that the routes/views can easily use
 const findUserWithPostsByUsername = (username, callback) => {
+  console.log( "(>'')>  1", username )
   knex('users')
     .leftOuterJoin('posts', 'users.id', 'posts.user_id')
     .leftOuterJoin('cities', 'posts.cities_id', 'cities.id')
     .where({ username: username})
     .select('username', 'current_city', 'email', 'users.created_at', 'posts.id','content','posts.created_at', 'cities.name')
   .then((result, error) => {
+    console.log( "(>'')>  2", result )
     const returnedUser = {
                           username: result[0].username,
                           current_city: result[0].current_city,
