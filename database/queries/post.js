@@ -6,20 +6,13 @@ const getPostWithUserByPostId = (postId, callback) =>
     .join('cities', 'posts.cities_id', '=', 'cities.id')
     .where('posts.id', postId)
     .first('username','current_city','users.created_at AS member_since','cities.name AS city', 'content','posts.created_at')
-  .then((result, error) => {
-    callback(error, result)
-  })
 
-const deletePostById = (postId, callback) => {
+const deletePostById = (postId, callback) =>
   knex('posts')
     .where('posts.id', postId)
     .del()
-  .then((result, error) => {
-    callback(error, result)
-  })
-}
 
-const createPost = (userId, citiesId, title, content, callback) => {
+const createPost = (userId, citiesId, title, content, callback) =>
   knex('posts')
     .insert({
       user_id: userId,
@@ -27,11 +20,7 @@ const createPost = (userId, citiesId, title, content, callback) => {
       title: title,
       content: content
     })
-    .returning('*')
-  .then((result) => {
-    callback()
-  })
-}
+
 
 module.exports = {
   getPostWithUserByPostId,

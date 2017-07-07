@@ -5,6 +5,7 @@ const path = require('path')
 const router = require('./routes')
 const session = require('express-session')
 const passport = require('./auth/passport')
+const { readConfig } = require('./config/config')
 
 const server = express()
 const PORT = process.env.PORT || 9001
@@ -16,7 +17,7 @@ server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
 server.use(cookieParser())
 server.use(session({
-  secret: 'Dark side',
+  secret: process.env.SESSION,
   resave: true,
   saveUninitialized: false
 }))

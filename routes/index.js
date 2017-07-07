@@ -18,5 +18,4 @@ router.use('/user', routerUser)
 router.use('/post', routerPost)
 router.use('/city', routerCity)
 
-
 module.exports = router

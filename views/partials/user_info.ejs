@@ -6,6 +6,6 @@
   <h1> Joined <%-  data.created_at %></h1>
   <h1> Current City <%- data.current_city %></h1>
   <% if(locals.session.passport.user == locals.data.userId) { %>
-    <a class="button is-primary">Edit Info</a>
+    <a class="button is-primary" href="/user/update_user">Edit Info</a>
   <% } %>
 </div>

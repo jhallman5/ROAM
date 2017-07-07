@@ -7,7 +7,7 @@ const findUserbyUsername = (username, callback) =>
     })
 
 //finds user and then processes user to an object that the routes/views can easily use
-const findUserWithPostsByUsername = (username, callback) => {
+const findUserWithPostsByUsername = (username) =>
   knex('users')
     .leftOuterJoin('posts', 'users.id', 'posts.user_id')
     .leftOuterJoin('cities', 'posts.cities_id', 'cities.id')
@@ -15,25 +15,25 @@ const findUserWithPostsByUsername = (username, callback) => {
     .select('username', 'users.id AS userId', 'current_city', 'email', 'users.created_at', 'posts.id', 'content', 'posts.created_at', 'cities.name')
   .then((result, error) => {
     const returnedUser = {
-                          username: result[0].username,
-                          userId: result[0].userId,
-                          current_city: result[0].current_city,
-                          email: result[0].email,
-                          created_at: result[0].created_at,
-                          posts: result.map(post => {
-                            return { id: post.id,
-                                    city: post.name,
-                                    content: post.content,
-                                    created_at: post.created_at
-                                  }
-                          })
+      username: result[0].username,
+      userId: result[0].userId,
+      current_city: result[0].current_city,
+      email: result[0].email,
+      created_at: result[0].created_at,
+      posts: result.map(post => {
+        return {
+          id: post.id,
+          city: post.name,
+          content: post.content,
+          created_at: post.created_at
+        }
+      })
     }
     if(!returnedUser.posts[0].id) {
       returnedUser.posts[0].content = "None... yet!"
     }
-    callback(error, returnedUser)
+    return returnedUser
   })
-}
 
 const findUserById = (id, callback) =>
   knex.select().from('users').where({id: id})
@@ -41,12 +41,11 @@ const findUserById = (id, callback) =>
       callback(error, result[0])
     })
 
-const addUser = (username, email, password, callback) => {
+const addUser = (username, email, password) =>
   knex.select().from('users').where({ username: username})
     .then((result, error) => {
       if(!result.length){
         return knex('users')
-        .returning('*')
         .insert({
           email: email,
           username: username,
@@ -54,14 +53,22 @@ const addUser = (username, email, password, callback) => {
         })
       }
     })
-  .then(() => {
-    callback()
-  })
-}
+
+const updateUser = (username, email, password) =>
+  knex('users')
+  .where(username)
+    .update({
+      username: username,
+      email: email,
+      password: password
+    })
+
+
 
 module.exports = {
   findUserbyUsername,
   findUserWithPostsByUsername,
   findUserById,
   addUser,
+  updateUser,
 }
