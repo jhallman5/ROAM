@@ -1,7 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const knex = require('../database/knex')
-const queries = require('../database/queries')
+const { User } = require('../database/queries')
 const bcrypt = require('bcrypt')
 
 passport.use('local', new LocalStrategy({
@@ -9,7 +9,7 @@ passport.use('local', new LocalStrategy({
   session: true
 },
   (req, username, password, done) => {
-   queries.findUserbyUsername(username, function (error, user) {
+   User.findUserbyUsername(username, function (error, user) {
      if (!user) {
        return done(null, false, { message: 'Incorrect username.' });
      }
@@ -25,11 +25,11 @@ passport.use('local', new LocalStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-  done(null, user.username);
+  done(null, user.id);
 })
 
-passport.deserializeUser((username, done) => {
-  queries.findUserbyUsername(username, (err, user) => {
+passport.deserializeUser((id, done) => {
+  User.findUserById(id, (err, user) => {
     done(err, user)
   });
 })

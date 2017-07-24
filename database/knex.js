@@ -1,5 +1,5 @@
-const enviroment = process.env.NODE_ENV || 'development'
-const config = require('../knexfile.js')[enviroment]
+require('dotenv').config({path: __dirname + '/../.env'})
 
+const config = require('./knexfile.js')
 
 module.exports = require('knex')(config)

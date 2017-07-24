@@ -4,7 +4,7 @@
       <a class="nav-item" href='/'>ROAM</a>
     <div class="nav-right nav-menu">
       <% if(locals.session){ %>
-        <a class="nav-item is-tab" href="/user/<%- locals.session.passport.user %>">Profile</a>
+        <a class="nav-item is-tab" href="/user/profile">Profile</a>
         <a class="nav-item is-tab" href="/log_out">Log Out</a>
        <% } else { %>
         <a class="nav-item is-tab" href="/sign_in">Sign In</a>

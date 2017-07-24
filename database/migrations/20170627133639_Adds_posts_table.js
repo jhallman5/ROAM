@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments(),
     table.integer('user_id'),
     table.integer('cities_id'),
+    table.text('title'),
     table.text('content'),
     table.timestamp('created_at').defaultTo(knex.fn.now())
   })
